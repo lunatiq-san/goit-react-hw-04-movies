@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link, useParams, Route, useRouteMatch } from 'react-router-dom';
 import * as moviesAPI from '../services/movies-api';
 import { NavLink } from 'react-router-dom';
-import CastPage from './CastPage';
-import ReviewsPage from './ReviewsPage';
+import Cast from '../components/Cast';
+import Reviews from '../components/Reviews';
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -46,10 +46,10 @@ const MovieDetailsPage = () => {
 
               <hr />
               <Route path={`${path}/cast`}>
-                <CastPage />
+                <Cast />
               </Route>
               <Route path={`${path}/reviews`}>
-                <ReviewsPage />
+                <Reviews />
               </Route>
             </div>
           </div>
