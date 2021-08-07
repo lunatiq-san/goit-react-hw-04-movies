@@ -1,22 +1,37 @@
 import { useState, useEffect } from 'react';
-import { Link, useParams, Route, useRouteMatch } from 'react-router-dom';
+import {
+  Link,
+  useParams,
+  Route,
+  useRouteMatch,
+  useHistory,
+  useLocation,
+} from 'react-router-dom';
 import * as moviesAPI from '../services/movies-api';
 import { NavLink } from 'react-router-dom';
 import Cast from '../components/Cast';
 import Reviews from '../components/Reviews';
 
 const MovieDetailsPage = () => {
+  const { state } = useLocation();
   const { movieId } = useParams();
   const { url, path } = useRouteMatch();
   const [movie, setMovie] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
     moviesAPI.fetchMovieDetails(movieId).then(setMovie);
   }, [movieId]);
 
+  const handleGoBack = () => {
+    history.push({
+      pathname: state?.backUrl || '/',
+    });
+  };
+
   return (
     <>
-      <button onClick={() => {}}>Go Back</button>
+      <button onClick={handleGoBack}>Go Back</button>
       {movie && (
         <>
           <img

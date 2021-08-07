@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link, useRouteMatch, useLocation } from 'react-router-dom';
 import * as moviesAPI from '../services/movies-api';
 
 const HomePage = () => {
+  const { pathname } = useLocation();
   const { url } = useRouteMatch();
-  const [movies, setMovies] = useState(null);
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     moviesAPI.fetchPopularMovies().then(data => setMovies(data.results));
@@ -17,7 +18,14 @@ const HomePage = () => {
         {movies &&
           movies.map(movie => (
             <li key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>
+              <Link
+                to={{
+                  pathname: `/movies/${movie.id}`,
+                  state: {
+                    backUrl: pathname,
+                  },
+                }}
+              >
                 {movie.title || movie.name}
               </Link>
             </li>
