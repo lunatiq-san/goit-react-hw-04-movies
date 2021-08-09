@@ -4,7 +4,6 @@ import * as moviesAPI from '../services/movies-api';
 
 const HomePage = () => {
   const { pathname } = useLocation();
-  const { url } = useRouteMatch();
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {

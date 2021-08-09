@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import {
-  Link,
+  NavLink,
   useParams,
   Route,
   useRouteMatch,
@@ -8,7 +8,6 @@ import {
   useLocation,
 } from 'react-router-dom';
 import * as moviesAPI from '../services/movies-api';
-import { NavLink } from 'react-router-dom';
 import Cast from '../components/Cast';
 import Reviews from '../components/Reviews';
 
@@ -24,8 +23,16 @@ const MovieDetailsPage = () => {
   }, [movieId]);
 
   const handleGoBack = () => {
+    if (state?.query) {
+      history.push({
+        pathname: state?.backUrl || '/',
+        search: `query=${state.query}`,
+      });
+      return;
+    }
+
     history.push({
-      pathname: state?.backUrl || '/',
+      pathname: '/',
     });
   };
 
