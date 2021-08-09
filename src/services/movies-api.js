@@ -1,6 +1,5 @@
 const API_KEY = '669fe37c03d3daa74e87539ce9d57ec5';
 const BASE_URL = 'https://api.themoviedb.org';
-// Example API request = https://api.themoviedb.org/3/movie/550?api_key=669fe37c03d3daa74e87539ce9d57ec5
 
 async function ApiService(url) {
   const response = await fetch(url);
@@ -15,7 +14,7 @@ export function fetchPopularMovies() {
 
 export function fetchMoviesByQuery(query) {
   return ApiService(
-    `${BASE_URL}/3/search/movie?api_key=${API_KEY}&query=${query}&page=1`,
+    `${BASE_URL}/3/search/movie?api_key=${API_KEY}&query=${query}`,
   );
 }
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import {
-  NavLink,
+  Link,
   useParams,
   Route,
   useRouteMatch,
@@ -27,6 +27,13 @@ const MovieDetailsPage = () => {
       history.push({
         pathname: state?.backUrl || '/',
         search: `query=${state.query}`,
+      });
+      return;
+    }
+
+    if (!state?.query && state?.backUrl) {
+      history.push({
+        pathname: state.backUrl,
       });
       return;
     }
@@ -59,10 +66,30 @@ const MovieDetailsPage = () => {
               <h3>Additional information</h3>
               <ul>
                 <li>
-                  <NavLink to={`${url}/cast`}>Cast</NavLink>
+                  <Link
+                    to={{
+                      pathname: `${url}/cast`,
+                      state: {
+                        backUrl: state.backUrl,
+                        query: state.query,
+                      },
+                    }}
+                  >
+                    Cast
+                  </Link>
                 </li>
                 <li>
-                  <NavLink to={`${url}/reviews`}>Reviews</NavLink>
+                  <Link
+                    to={{
+                      pathname: `${url}/reviews`,
+                      state: {
+                        backUrl: state?.backUrl || '/',
+                        query: state?.query || '',
+                      },
+                    }}
+                  >
+                    Reviews
+                  </Link>
                 </li>
               </ul>
 

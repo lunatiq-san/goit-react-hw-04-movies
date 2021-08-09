@@ -4,7 +4,7 @@ import * as moviesAPI from '../services/movies-api';
 import qs from 'query-string';
 
 const MoviesPage = () => {
-  const { pathname, state, search } = useLocation();
+  const { pathname, search } = useLocation();
   const history = useHistory();
   const [query, setQuery] = useState(qs.parse(search)?.query || '');
   const [resultSearch, setResultSearch] = useState([]);
@@ -17,14 +17,20 @@ const MoviesPage = () => {
     moviesAPI
       .fetchMoviesByQuery(query)
       .then(movies => setResultSearch(movies.results));
+
+    setQuery('');
   }, [search]);
 
   const handleChange = event => {
-    setQuery(event.currentTarget.value.toLowerCase());
+    setQuery(event.currentTarget.value);
   };
 
   const handleSubmit = event => {
     event.preventDefault();
+
+    if (query.trim() === '') {
+      return;
+    }
 
     history.push({
       pathname,
@@ -32,7 +38,6 @@ const MoviesPage = () => {
     });
   };
 
-  console.log('resultSearch', resultSearch);
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -53,10 +58,9 @@ const MoviesPage = () => {
               <Link
                 to={{
                   pathname: `/movies/${movie.id}`,
-                  search: `?query=${query}`,
                   state: {
                     backUrl: pathname,
-                    query,
+                    query: qs.parse(search)?.query,
                   },
                 }}
               >
@@ -66,10 +70,6 @@ const MoviesPage = () => {
           ))}
         </ul>
       )}
-
-      {/* {resultSearch && resultSearch.length === 0 && (
-        <p>No matches found. Enter the correct query</p>
-      )} */}
     </>
   );
 };

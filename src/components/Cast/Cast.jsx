@@ -11,7 +11,7 @@ const Cast = () => {
   }, [movieId]);
 
   return (
-    <>
+    <ul>
       {cast &&
         cast.map(actor => (
           <li key={actor.id}>
@@ -25,7 +25,7 @@ const Cast = () => {
             <p>{actor.character}</p>
           </li>
         ))}
-    </>
+    </ul>
   );
 };
 
