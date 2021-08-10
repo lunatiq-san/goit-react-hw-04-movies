@@ -32,7 +32,7 @@ const MovieDetailsPage = () => {
   const handleGoBack = () => {
     if (state?.query) {
       history.push({
-        pathname: state?.backUrl || '/',
+        pathname: state.backUrl,
         search: `query=${state.query}`,
       });
       return;
@@ -81,8 +81,8 @@ const MovieDetailsPage = () => {
                   to={{
                     pathname: `${url}/cast`,
                     state: {
-                      backUrl: state.backUrl,
-                      query: state.query,
+                      backUrl: state?.backUrl || '/',
+                      query: state?.query || '',
                     },
                   }}
                 >
