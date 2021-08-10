@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation, Link, useHistory } from 'react-router-dom';
-import * as moviesAPI from '../services/movies-api';
+import * as moviesAPI from '../../services/movies-api';
 import qs from 'query-string';
 
 const MoviesPage = () => {
@@ -34,7 +34,7 @@ const MoviesPage = () => {
 
     history.push({
       pathname,
-      search: `?query=${query}`,
+      search: `query=${query}`,
     });
   };
 

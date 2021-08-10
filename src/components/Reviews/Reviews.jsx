@@ -13,10 +13,10 @@ const Reviews = () => {
   if (reviews && reviews.length > 0) {
     return (
       <ul>
-        {reviews.map(review => (
-          <li key={review.id}>
-            <h3>{review.author}</h3>
-            <p>{review.content}</p>
+        {reviews.map(({ id, author, content }) => (
+          <li key={id}>
+            <h3>{author}</h3>
+            <p>{content}</p>
           </li>
         ))}
       </ul>

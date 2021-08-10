@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Link, useRouteMatch, useLocation } from 'react-router-dom';
-import * as moviesAPI from '../services/movies-api';
+import { Link, useLocation } from 'react-router-dom';
+import * as moviesAPI from '../../services/movies-api';
 
 const HomePage = () => {
   const { pathname } = useLocation();
@@ -15,17 +15,17 @@ const HomePage = () => {
       <h1>Trending today</h1>
       <ul>
         {movies &&
-          movies.map(movie => (
-            <li key={movie.id}>
+          movies.map(({ id, title, name }) => (
+            <li key={id}>
               <Link
                 to={{
-                  pathname: `/movies/${movie.id}`,
+                  pathname: `/movies/${id}`,
                   state: {
                     backUrl: pathname,
                   },
                 }}
               >
-                {movie.title || movie.name}
+                {title || name}
               </Link>
             </li>
           ))}
